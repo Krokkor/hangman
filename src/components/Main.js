@@ -33,23 +33,6 @@ const Main = () => {
         console.log(toGuessChars);
         console.log("lifecycle starts")
     }
- 
-    // const buttonPressed = (event) => {
- 
-    //     let playerInput = document.getElementById("inputField").value
-    //     document.getElementById("inputField").value = "";
-
-    //     //let playerInput = document.getElementById("button_").value
- 
-    //     switch (event.key) {
-    //         case 'Enter':
-    //             setGuessedChars(guessedChars + playerInput);
-    //             checkGuess(playerInput, toGuessChars);
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
 
     const keyBoardClicked = (letter) => {
         setGuessedChars(guessedChars + letter);

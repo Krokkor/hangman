@@ -1,9 +1,10 @@
 
 
-const ShowWord = ({toGuessChars, guessedChars}) => {
+const ShowWord = ({toGuessChars, guessedChars, hint, showHint}) => {
 
     
-    let result = ""; 
+    let result = "";
+    
     //result = toGuessChars.filter(element => guessedChars.includes(element))
 
     for (let i = 0; i < toGuessChars.length; i++) { 
@@ -17,10 +18,22 @@ const ShowWord = ({toGuessChars, guessedChars}) => {
         }    
     }
 
+    const hintButtonClicked = () => {
+        document.getElementById("hintDiv").innerHTML = hint
+    }
+    
 
     return(
         <div className="showWord">
             {result} <br/>
+            
+            {showHint ?
+            <div id="hintDiv">
+                <button onClick={hintButtonClicked}>Hint</button>
+            </div>
+            :
+            ""
+            }
         </div>
     )
 }

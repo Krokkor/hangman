@@ -9,7 +9,8 @@ const Main = () => {
     const [guessedChars, setGuessedChars] = useState([]);
     const [wrongGuessCount, setWrongGuessCount] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [testState, setTestState] = useState(0)
+    const [hint, setHint] = useState([])
+    const [showHint, setShowHint] = useState(false);
     
  
     //didmountin korvike
@@ -23,34 +24,37 @@ const Main = () => {
  
     const init = () => {
         let words = ["monkey", "gorilla"];
+        let hints = ["A tree-dewelling primate", "The largest living primate"]
         let wordChoice = randomNumber(0, words.length);
  
         setToGuessChars(toGuessChars => words[wordChoice].split(""));
-        
+        setHint(hint => hints[wordChoice]);
+
         console.log(toGuessChars);
         console.log("lifecycle starts")
     }
  
-    const buttonPressed = (event) => {
+    // const buttonPressed = (event) => {
  
-        let playerInput = document.getElementById("inputField").value
-        document.getElementById("inputField").value = "";
+    //     let playerInput = document.getElementById("inputField").value
+    //     document.getElementById("inputField").value = "";
 
-        //let playerInput = document.getElementById("button_").value
+    //     //let playerInput = document.getElementById("button_").value
  
-        switch (event.key) {
-            case 'Enter':
-                setGuessedChars(guessedChars + playerInput);
-                checkGuess(playerInput, toGuessChars);
-                break;
-            default:
-                break;
-        }
-    }
+    //     switch (event.key) {
+    //         case 'Enter':
+    //             setGuessedChars(guessedChars + playerInput);
+    //             checkGuess(playerInput, toGuessChars);
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
     const keyBoardClicked = (letter) => {
         setGuessedChars(guessedChars + letter);
         checkGuess(letter, toGuessChars);
+        document.getElementById("button_"+letter).disabled = true;
     }
    
  
@@ -65,6 +69,9 @@ const Main = () => {
             setWrongGuessCount(wrongGuessCount +1);
             console.log(wrongGuessCount);
         }
+        if (wrongGuessCount >= 3){
+            setShowHint(showHint => true);
+        }
         if (wrongGuessCount == 5) {
             setGameOver(gameOver => true);
         }
@@ -74,6 +81,8 @@ const Main = () => {
  
     return (
         <div className="main">
+            <h3 className="hangmanTitle">Hanged man</h3>
+
             <ShowDrawing wrongGuessCount={wrongGuessCount} />
             
             {gameOver ? 
@@ -82,8 +91,8 @@ const Main = () => {
                 <button onClick={() => window.location.reload()}>Reload the game</button>
             </div>
             : 
-            <div>
-                <ShowWord toGuessChars={toGuessChars} guessedChars={guessedChars} /> 
+            <div className="col d-inline-block">
+                <ShowWord toGuessChars={toGuessChars} guessedChars={guessedChars} wrongGuessCount={wrongGuessCount} hint={hint} showHint={showHint} /> 
                 <Keyboard keyBoardClicked={keyBoardClicked} toGuessChars={toGuessChars}/>
             </div>
             }

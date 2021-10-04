@@ -1,13 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .App {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  justify-content: center;
+  font-family: 'Bebas Neue', cursive;
 }
 
 .App-logo {
@@ -21,20 +15,54 @@
   }
 }
 
+img{
+  max-height: auto;
+  max-width: auto;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.hintDiv{
+  background: #2e3f44;
+}
+
 .main{
-  align-items: center;
-  justify-content: center;
-  min-width: 70%;
+  min-height: 100%;
   text-align: center;
+  background: #094f63;
+}
+
+.keyboard{
+  max-width: 65%;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .showWord{
   text-align: center;
+  background: #41c5f1;
+  min-width: auto;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
-.keyboardRow{
-  margin-top: 2px;
-  width: 20%;
+.container{
+  background: #84d2e7;
+}
+
+.infoBox{
+  background: #058aaf;
+  min-height: 100%;
+}
+
+button:disabled{
+  background: #133842;
+  color: #309dbb;
+}
+
+button{
+  
+  border-radius: 2px 2px 2px 2px;
 }
 
 button{

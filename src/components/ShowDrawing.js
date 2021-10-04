@@ -16,7 +16,7 @@ const ShowDrawing = ({wrongGuessCount}) => {
 
 
     return(
-        <div className="noose">
+        <div className="noose row w-50 d-inline-block">
             {image}
         </div>
     )

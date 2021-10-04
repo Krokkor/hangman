@@ -66,15 +66,22 @@ const Main = () => {
             returnvalue = true
         }else {
             console.log("nayy");
-            setWrongGuessCount(wrongGuessCount +1);
+            setWrongGuessCount(wrongGuessCount + 1);
             console.log(wrongGuessCount);
         }
-        if (wrongGuessCount >= 3){
-            setShowHint(showHint => true);
+
+        switch (wrongGuessCount) {
+            case 5:
+                setGameOver(gameOver => true);
+                break;
+            
+            case 3:
+                setShowHint(showHint => true);
+                break;
+            default:
+                break;
         }
-        if (wrongGuessCount == 5) {
-            setGameOver(gameOver => true);
-        }
+
         return returnvalue;
     }
  

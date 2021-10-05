@@ -11,7 +11,8 @@ const Main = () => {
     const [gameOver, setGameOver] = useState(false);
     const [hint, setHint] = useState([])
     const [showHint, setShowHint] = useState(false);
-    
+    const [victory, setVictory] = useState(false);
+    const [correctGuess, setCorrectGuess] = useState([]);
  
     //didmountin korvike
     useEffect(() => {
@@ -30,14 +31,15 @@ const Main = () => {
         setToGuessChars(toGuessChars => words[wordChoice].split(""));
         setHint(hint => hints[wordChoice]);
 
-        console.log(toGuessChars);
-        console.log("lifecycle starts")
+        // console.log(toGuessChars);
+        // console.log("lifecycle starts")
     }
 
     const keyBoardClicked = (letter) => {
         setGuessedChars(guessedChars + letter);
         checkGuess(letter, toGuessChars);
         document.getElementById("button_"+letter).disabled = true;
+        //console.log(guessedChars);
     }
    
  
@@ -45,12 +47,11 @@ const Main = () => {
         let returnvalue = false;
         
         if(array.includes(char)){
-            console.log("ayy");
             returnvalue = true
+            correctGuess.push(char)
+            setCorrectGuess(correctGuess);
         }else {
-            console.log("nayy");
             setWrongGuessCount(wrongGuessCount + 1);
-            console.log(wrongGuessCount);
         }
 
         switch (wrongGuessCount) {
@@ -58,9 +59,24 @@ const Main = () => {
                 setGameOver(gameOver => true);
                 break;
             
-            case 3:
+            case 2:
                 setShowHint(showHint => true);
                 break;
+            default:
+                break;
+        }
+
+        //checks unique letters in array so I can compare them to correctly
+        //guessed letters, because duplicates don't get registered in length
+        const winRequirementUniques = new Set(toGuessChars);
+        const winRequirement = Array.from(winRequirementUniques).length;
+
+        switch (correctGuess.length) {
+            case winRequirement:
+                console.log("voitto")
+                setVictory(victory => true);
+                break;
+        
             default:
                 break;
         }
@@ -68,24 +84,26 @@ const Main = () => {
         return returnvalue;
     }
  
- 
+    //add victorystate displaying win when winrequirement is fulfilled.
     return (
         <div className="main">
             <h3 className="hangmanTitle">Hanged man</h3>
 
-            <ShowDrawing wrongGuessCount={wrongGuessCount} />
+            <div>
+                <ShowDrawing wrongGuessCount={wrongGuessCount} />
             
-            {gameOver ? 
-            <div> 
-                <p id="gameOver">Game over</p>
-                <button onClick={() => window.location.reload()}>Reload the game</button>
+                {gameOver ? 
+                <div> 
+                    <p id="gameOver">Game over</p>
+                    <button onClick={() => window.location.reload()}>Reload the game</button>
+                </div>
+                : 
+                <div className="col d-inline-block">
+                    <ShowWord toGuessChars={toGuessChars} guessedChars={guessedChars} wrongGuessCount={wrongGuessCount} hint={hint} showHint={showHint} /> 
+                    <Keyboard keyBoardClicked={keyBoardClicked} toGuessChars={toGuessChars}/>
+                </div>
+                }
             </div>
-            : 
-            <div className="col d-inline-block">
-                <ShowWord toGuessChars={toGuessChars} guessedChars={guessedChars} wrongGuessCount={wrongGuessCount} hint={hint} showHint={showHint} /> 
-                <Keyboard keyBoardClicked={keyBoardClicked} toGuessChars={toGuessChars}/>
-            </div>
-            }
             
         </div>
     );

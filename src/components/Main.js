@@ -67,7 +67,7 @@ const Main = () => {
         }
 
         //checks unique letters in array so I can compare them to correctly
-        //guessed letters, because duplicates don't get registered in length
+        //guessed letters, because duplicates don't get registered in length of guessed chars
         const winRequirementUniques = new Set(toGuessChars);
         const winRequirement = Array.from(winRequirementUniques).length;
 
